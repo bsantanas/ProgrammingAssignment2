@@ -29,18 +29,20 @@ cacheSolve <- function(x, ...) {
     return(inv)
   }
   data <- x$get()
+  message("calculating inverse")
   inverse <- solve(data, ...)
-  x$setinv(inv)
-  
+  x$setinv(inverse)
   # Return a matrix that is the inverse of 'x'
-  inv
+  inverse
 }
 
-testsolve <- function() {
+## testsolve iterates through both functions to appreciate the optimization
+testsolve <- function(n = 10) {
   x <- matrix(runif(16,1,10),4,4)
   mymatrix <- makeCacheMatrix(x)
-  for i <- 1:3 {
+  for (i in 1:n) {
     cacheSolve(mymatrix)
   }
+  cacheSolve(mymatrix)
 }
 
